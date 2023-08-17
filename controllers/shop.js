@@ -111,8 +111,7 @@ exports.postOrder = async (req, res, next) => {
 
 
 exports.getOrders = (req, res, next) => {
-  req.user
-    .getOrders()
+  Order.find({ 'user.userId': req.user._id }) // Find orders belonging to the logged-in user
     .then(orders => {
       res.render('shop/orders', {
         path: '/orders',
