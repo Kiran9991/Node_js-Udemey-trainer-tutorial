@@ -19,7 +19,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findUserById("64dc8812e7dd13ffeaa10292")
+  User.findById("64de0ec82c4004133096e37e")
     .then(user => {
       req.user = user;
       next();
@@ -47,6 +47,7 @@ mongoose
     }
   })
   app.listen(3000);
+  console.log('Server is running on Port 3000')
 }).catch(err => {
   console.log(err)
 })
