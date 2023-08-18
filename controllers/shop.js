@@ -87,7 +87,7 @@ exports.postOrder = async (req, res, next) => {
     const user = await User.findById(req.user._id).populate('cart.items.productId');
 
     const products = user.cart.items.map(item => {
-      return { quantity: item.quantity, productData: item.productId };
+      return { quantity: item.quantity, productData: { ...item.productId._doc } };
     });
 
     const order = new Order({
@@ -111,7 +111,7 @@ exports.postOrder = async (req, res, next) => {
 
 
 exports.getOrders = (req, res, next) => {
-  Order.find({ 'user.userId': req.user._id }) // Find orders belonging to the logged-in user
+  Order.find({ 'user.userId': req.user._id })
     .then(orders => {
       res.render('shop/orders', {
         path: '/orders',
